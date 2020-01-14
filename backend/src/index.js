@@ -8,6 +8,7 @@ const app = express();
 mongoose.connect('mongodb+srv://contibru:laranjauva@cluster0-qjxlw.mongodb.net/week10?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
 }) 
 
 // Aqui definimos que o aplicativo vai entender requisições Json.

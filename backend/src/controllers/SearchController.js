@@ -7,7 +7,6 @@ module.exports = {
         
         const {latitude, longitude, techs} = request.query;
         const techsArray = parseStringAsArray(techs);
-        console.log(request.query);
 
         const devs = await Dev.find({
             techs: {
@@ -24,7 +23,7 @@ module.exports = {
             },
 
         });
-        console.log('Oi');
+        console.log(devs);
         return response.json({devs});
 
     }
