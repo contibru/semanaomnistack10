@@ -31,7 +31,9 @@ function DevForm({onSubmit}){
 
 
     async function handleSubmit(e){
-      e.prevetDefault();
+
+      e.preventDefault();
+      console.log(github_username);
       await onSubmit({
         github_username,
         techs,
@@ -43,7 +45,6 @@ function DevForm({onSubmit}){
       setTechs('');
 
     }
-
 
     return (
         <form onSubmit={handleSubmit}>
