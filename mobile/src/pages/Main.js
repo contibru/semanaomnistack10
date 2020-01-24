@@ -5,12 +5,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { requestPermissionsAsync, getCurrentPositionAsync } from "expo-location";
 import api from "../services/api";
 
+import { connect, disconnect } from '../services/socket';
+
 function Main({navigation}){
 
     const[devs, setDevs] = useState([]);
     const[currentRegion, setCurrentRegion] = useState(null);
     const[techs, setTechs] = useState('')
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const[isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {
         
@@ -37,8 +39,16 @@ function Main({navigation}){
 
     }, []);
 
+    function setupWebsocket(){
+        
+        const {latitude, longitude} = currentRegion;
 
-    
+        connect(
+            latitude,
+            longitude,
+            techs
+        );
+    }
 
     async function loadDevs(){
         const { latitude, longitude} = currentRegion;
@@ -50,8 +60,10 @@ function Main({navigation}){
                 techs,
             }
         });
-        console.log(response.data);
+
         setDevs(response.data.devs);
+        setupWebsocket();
+
     }
 
     function handleRegionChanged(region){
